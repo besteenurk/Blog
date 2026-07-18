@@ -26,7 +26,7 @@ export default function Footer() {
           <Link href="/" className="transition-colors hover:text-paper-100">
             Anasayfa
           </Link>
-          <Link href="/#posts" className="transition-colors hover:text-accent-300">
+          <Link href="/yazilar" className="transition-colors hover:text-accent-300">
             Yazılar
           </Link>
           <Link href="/admin/login" className="transition-colors hover:text-paper-400/70">
