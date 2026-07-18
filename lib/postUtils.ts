@@ -10,6 +10,7 @@ export interface Post {
   tags: string[];
   date: string;
   published: boolean;
+  views: number;
 }
 
 export type PostInput = {

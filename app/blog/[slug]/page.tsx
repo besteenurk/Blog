@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getPostBySlug, estimateReadingTime } from "@/lib/posts";
 import MarkdownContent from "@/components/MarkdownContent";
 import { tagColor } from "@/lib/tagColors";
+import ViewTracker from "@/components/ViewTracker";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("tr-TR", {
@@ -38,6 +39,7 @@ export default async function PostPage({
 
   return (
     <article className="mx-auto max-w-2xl px-5 py-12 sm:py-16">
+      <ViewTracker slug={post.slug} />
       <Link
         href="/"
         className="font-mono text-xs text-paper-400 transition-colors hover:text-accent-300"

@@ -20,6 +20,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Anyone visiting a post can bump its view counter — no admin needed.
+  if (pathname.endsWith("/view") && request.method === "POST") {
+    return NextResponse.next();
+  }
+
   // The login page itself must stay reachable.
   if (pathname === "/admin/login") {
     return NextResponse.next();

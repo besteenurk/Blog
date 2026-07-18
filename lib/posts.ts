@@ -67,11 +67,21 @@ export async function createPost(input: PostInput): Promise<Post> {
     tags: (input.tags ?? []).map((t) => t.trim()).filter(Boolean),
     date: new Date().toISOString(),
     published: input.published ?? true,
+    views: 0,
   };
 
   posts.push(post);
   await writeAll(posts);
   return post;
+}
+
+export async function incrementViews(slug: string): Promise<number | null> {
+  const posts = await readAll();
+  const idx = posts.findIndex((p) => p.slug === slug);
+  if (idx === -1) return null;
+  posts[idx].views = (posts[idx].views ?? 0) + 1;
+  await writeAll(posts);
+  return posts[idx].views;
 }
 
 export async function updatePost(slug: string, input: Partial<PostInput>): Promise<Post> {
