@@ -55,9 +55,10 @@ function FloatingShape({ def }: { def: Shape }) {
 function Scene({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: number }> }) {
   const group = useRef<THREE.Group>(null);
 
-  useFrame(() => {
+  useFrame((state) => {
     if (!group.current) return;
-    const targetY = pointer.current.x * 0.35;
+    const idle = state.clock.getElapsedTime() * 0.06;
+    const targetY = idle + pointer.current.x * 0.35;
     const targetX = -pointer.current.y * 0.2;
     group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetY, 0.06);
     group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, targetX, 0.06);
@@ -78,6 +79,7 @@ function Scene({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: nu
 
 export default function HeroShapes() {
   const pointer = useRef({ x: 0, y: 0 });
+  const orientationBound = useRef(false);
 
   function onPointerMove(e: React.PointerEvent) {
     const el = e.currentTarget as HTMLDivElement;
@@ -86,8 +88,37 @@ export default function HeroShapes() {
     pointer.current.y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
   }
 
+  function bindOrientation() {
+    if (orientationBound.current) return;
+    orientationBound.current = true;
+
+    function handleOrientation(e: DeviceOrientationEvent) {
+      if (e.gamma === null || e.beta === null) return;
+      pointer.current.x = THREE.MathUtils.clamp(e.gamma / 30, -1, 1);
+      pointer.current.y = THREE.MathUtils.clamp((e.beta - 35) / 30, -1, 1);
+    }
+
+    const DOE = window.DeviceOrientationEvent as unknown as {
+      requestPermission?: () => Promise<"granted" | "denied">;
+    };
+    if (typeof DOE?.requestPermission === "function") {
+      DOE.requestPermission()
+        .then((res) => {
+          if (res === "granted") window.addEventListener("deviceorientation", handleOrientation);
+        })
+        .catch(() => {});
+    } else {
+      window.addEventListener("deviceorientation", handleOrientation);
+    }
+  }
+
   return (
-    <div className="absolute inset-0" onPointerMove={onPointerMove}>
+    <div
+      className="absolute inset-0"
+      onPointerMove={onPointerMove}
+      onPointerDown={bindOrientation}
+      onTouchStart={bindOrientation}
+    >
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 6], fov: 42 }}
