@@ -1,20 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import HeroShapesClient from "./HeroShapesClient";
+import FloatingShapes3D from "@/components/FloatingShapes3D";
 
 const LINE = "Düşünceler kâğıda dökülünce iz bırakır.";
 
 const container = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.028 },
+    transition: { staggerChildren: 0.09 },
   },
 };
 
-const letter = {
-  hidden: { opacity: 0, y: 10 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
+const word = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
 };
 
 export default function HomeHero() {
@@ -24,7 +24,7 @@ export default function HomeHero() {
       className="relative isolate min-h-[62svh] overflow-hidden border-b border-ink-700/70 px-5 pb-14 pt-16 sm:min-h-[74svh] sm:pb-20 sm:pt-24"
     >
       <div className="absolute inset-0 z-0">
-        <HeroShapesClient />
+        <FloatingShapes3D />
       </div>
 
       <div
@@ -53,9 +53,9 @@ export default function HomeHero() {
             color: "transparent",
           }}
         >
-          {LINE.split("").map((char, i) => (
-            <motion.span key={i} variants={letter} style={{ display: "inline-block" }}>
-              {char === " " ? "\u00A0" : char}
+          {LINE.split(" ").map((wordText, i) => (
+            <motion.span key={i} variants={word} style={{ display: "inline-block", marginRight: "0.28em" }}>
+              {wordText}
             </motion.span>
           ))}
           <motion.span

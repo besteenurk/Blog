@@ -148,6 +148,24 @@ body {
   }
 }
 
+@keyframes float3d {
+  0% {
+    transform: translateZ(0) translateY(0) rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: translateZ(30px) translateY(-14px) rotateX(12deg) rotateY(18deg);
+  }
+  50% {
+    transform: translateZ(0) translateY(4px) rotateX(-8deg) rotateY(-10deg);
+  }
+  75% {
+    transform: translateZ(-20px) translateY(-8px) rotateX(6deg) rotateY(14deg);
+  }
+  100% {
+    transform: translateZ(0) translateY(0) rotateX(0deg) rotateY(0deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
