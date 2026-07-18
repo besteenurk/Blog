@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import InkHeroClient from "./InkHeroClient";
+import HeroShapesClient from "./HeroShapesClient";
 
 const LINE = "Düşünceler kâğıda dökülünce iz bırakır.";
 
@@ -23,23 +23,20 @@ export default function HomeHero() {
       id="home-hero"
       className="relative isolate min-h-[62svh] overflow-hidden border-b border-ink-700/70 px-5 pb-14 pt-16 sm:min-h-[74svh] sm:pb-20 sm:pt-24"
     >
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <span className="blob blob-violet" />
-        <span className="blob blob-teal" />
-        <span className="blob blob-rose" />
+      <div className="absolute inset-0 z-0">
+        <HeroShapesClient />
       </div>
 
-      <InkHeroClient />
-
       <div
-        className="pointer-events-none absolute inset-0"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(180deg, rgba(10,13,19,0.15) 0%, rgba(10,13,19,0.55) 65%, rgba(10,13,19,0.92) 100%)",
+            "linear-gradient(180deg, rgba(10,13,19,0.1) 0%, rgba(10,13,19,0.6) 62%, rgba(10,13,19,0.95) 100%)",
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-3xl">
+      <div className="pointer-events-none relative z-20 mx-auto w-full max-w-3xl">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-300">
           Mindead — Kişisel Blog
         </p>
@@ -87,7 +84,7 @@ export default function HomeHero() {
           transition={{ delay: 1.4, duration: 0.5 }}
           className="mt-3 font-mono text-[11px] text-paper-400/70"
         >
-          Aşağı kaydır, mürekkep izini takip et.
+          Fareni ya da parmağını gezdir.
         </motion.p>
       </div>
     </div>
