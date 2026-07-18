@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "neden-yaziyorum",
+    "title": "Neden Yazıyorum",
+    "excerpt": "Bir düşünce, kağıda düşene kadar tam olarak senin değildir. Bu blogun var oluş sebebi de tam olarak bu.",
+    "content": "## Aklımdaki gürültü\n\nBir fikir kafamda dönüp durduğu sürece bana ait olduğuna inanırım ama genelde yanılırım. Cümle haline gelene kadar o fikir yarı çürük bir meyve gibidir; dışarıdan sağlam görünür, içi boştur.\n\nYazmak beni yavaşlatıyor. Bir cümleyi bitirmek için önce ne demek istediğimi bilmem gerekiyor, bu da beni ister istemez dürüst olmaya zorluyor.\n\n### Bu blog ne için var\n\n- Okuduğum bir şeyi unutmamak için\n- Bir fikri test etmek için, kimseye söylemeden önce kendime söylemek için\n- İleride buraya dönüp \"ne düşünüyormuşum\" diye bakabilmek için\n\n> Yazı, düşüncenin fotoğrafıdır. Netliği kadar iyidir.\n\nBuraya düzenli bir tempoyla değil, bir şey biriktiğinde yazacağım. Bazen kısa bir not, bazen uzun bir deneme olacak. Önemli olan biriktirmemek.",
+    "coverImage": null,
+    "tags": ["günlük", "yazı"],
+    "date": "2026-06-02T09:00:00.000Z",
+    "published": true
+  },
+  {
+    "slug": "bu-blogu-nasil-kurdum",
+    "title": "Bu Blogu Nasıl Kurdum",
+    "excerpt": "Next.js, dosya tabanlı basit bir veri katmanı ve tek kişilik bir yönetim paneli. Karmaşık hiçbir şeye ihtiyacım yoktu.",
+    "content": "## Basit tutmaya çalıştım\n\nBir blog için veritabanı, kullanıcı sistemi ya da CMS kurmak bana gereğinden fazla geldi. Tek yazan kişi benim, o yüzden yazılar şimdilik bir JSON dosyasında duruyor. İleride büyürse bir veritabanına taşımak zor olmayacak; veri erişimi tek bir dosyada topladım, geri kalan her şey oradan besleniyor.\n\n### Kullandığım parçalar\n\n1. **Next.js** — hem sayfaları hem API uçlarını aynı projede tutmak için\n2. **Tailwind CSS** — hız için, tasarımı boğmadan\n3. **Basit bir çerez tabanlı giriş** — kullanıcı hesabı yok, sadece benim yazı ekleyebildiğim bir şifre var\n\n### Neden kullanıcı sistemi yok\n\nBu blogda yorum yapan, hesap açan kimse olmayacak. Tek ihtiyacım, başkalarının göremediği bir sayfadan yazı ekleyip düzenleyebilmekti. Basit bir şifre ve imzalı bir çerez bunun için fazlasıyla yeterli.\n\nSonuç olarak ortaya taşıması kolay, anlaması kolay, gösterişten uzak bir sistem çıktı. Tam istediğim gibi.",
+    "coverImage": null,
+    "tags": ["teknik", "next.js"],
+    "date": "2026-06-20T14:30:00.000Z",
+    "published": true
+  },
+  {
+    "slug": "basit-bir-hayat-icin-notlar",
+    "title": "Basit Bir Hayat İçin Notlar",
+    "excerpt": "Karmaşıklık genelde bir tercih değil, alışkanlıktır. Bazı şeyleri sadeleştirmek sandığından daha kolay.",
+    "content": "## Az eşya, az karar\n\nSon aylarda fark ettiğim bir şey var: elimde ne kadar az seçenek varsa, günüm o kadar hafif geçiyor. Sabah ne giyeceğimi düşünmemek, ne yiyeceğime karar vermemek bile zihni boşaltıyor.\n\n### Denediğim birkaç şey\n\n- Aynı birkaç kombinasyonu tekrar tekrar giymek\n- Telefonu yatak odasının dışında şarj etmek\n- Haftada bir kez alışveriş listesi yapıp o listeye sadık kalmak\n\nHiçbiri devrim niteliğinde değil ama toplamda güne başlarken harcadığım zihinsel enerjiyi ciddi şekilde azalttı.\n\n> Sadelik süs değildir, yer açmaktır.\n\nBunu bir öz disiplin meselesi olarak değil, enerji bütçesi meselesi olarak görmeye çalışıyorum. Gün içinde verebileceğim iyi kararların sayısı sınırlı; onları önemli şeylere saklamak istiyorum.",
+    "coverImage": null,
+    "tags": ["günlük", "düşünce"],
+    "date": "2026-07-10T08:15:00.000Z",
+    "published": true
+  }
+]
