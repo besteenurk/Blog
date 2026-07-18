@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPostBySlug, estimateReadingTime } from "@/lib/posts";
 import MarkdownContent from "@/components/MarkdownContent";
+import { tagColor } from "@/lib/tagColors";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("tr-TR", {
@@ -19,7 +20,7 @@ export async function generateMetadata(
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Yazı bulunamadı" };
   return {
-    title: `${post.title} — Defter`,
+    title: `${post.title} — Mindead`,
     description: post.excerpt,
   };
 }
@@ -58,14 +59,18 @@ export default async function PostPage({
 
       {post.tags.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-2">
-          {post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full border border-ink-700 px-2.5 py-1 font-mono text-[11px] text-paper-400"
-            >
-              #{tag}
-            </span>
-          ))}
+          {post.tags.map((tag) => {
+            const c = tagColor(tag);
+            return (
+              <span
+                key={tag}
+                className="rounded-full px-2.5 py-1 font-mono text-[11px]"
+                style={{ background: c.bg, border: `1px solid ${c.border}`, color: c.text }}
+              >
+                #{tag}
+              </span>
+            );
+          })}
         </div>
       )}
 

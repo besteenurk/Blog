@@ -20,9 +20,18 @@ export default async function HomePage() {
         />
         <div className="relative mx-auto w-full max-w-3xl">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-300">
-            Kişisel Blog
+            Mindead — Kişisel Blog
           </p>
-          <h1 className="mt-4 max-w-xl font-display text-4xl font-semibold leading-[1.08] tracking-tight text-paper-100 sm:text-5xl">
+          <h1
+            className="mt-4 max-w-xl font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl"
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, #a6bcff 0%, #ff9fc9 45%, #7fe3cf 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+          >
             Düşünceler kâğıda dökülünce iz bırakır.
           </h1>
           <p className="mt-4 max-w-md text-[15px] leading-relaxed text-paper-400 sm:text-base">
@@ -32,7 +41,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-5 py-14 sm:py-20">
+      <section id="posts" className="mx-auto max-w-3xl scroll-mt-20 px-5 py-14 sm:py-20">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="font-display text-lg font-semibold text-paper-100">Yazılar</h2>
           <span className="font-mono text-xs text-paper-400">{posts.length} yazı</span>

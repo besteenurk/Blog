@@ -16,12 +16,14 @@ type PageDef = {
 };
 
 const PAGES: PageDef[] = [
-  { position: [-1.5, 0.4, -0.6], rotation: [0.1, 0.5, -0.15], size: [1.7, 2.2], color: "#1c2230", opacity: 0.92, floatSpeed: 0.5, floatOffset: 0 },
-  { position: [0.9, -0.5, -0.2], rotation: [-0.08, -0.35, 0.12], size: [1.9, 2.5], color: "#232a3a", opacity: 0.94, floatSpeed: 0.42, floatOffset: 1.6 },
-  { position: [-0.4, -0.9, 0.6], rotation: [0.15, 0.15, -0.05], size: [1.5, 2.0], color: "#7c9bff", opacity: 0.16, floatSpeed: 0.6, floatOffset: 3.1 },
-  { position: [1.7, 0.9, 0.3], rotation: [-0.12, -0.2, 0.08], size: [1.3, 1.7], color: "#ffb86b", opacity: 0.14, floatSpeed: 0.46, floatOffset: 2.2 },
-  { position: [0.1, 1.1, -0.9], rotation: [0.05, 0.3, 0.05], size: [1.6, 2.1], color: "#171c26", opacity: 0.9, floatSpeed: 0.38, floatOffset: 4.4 },
-  { position: [-1.9, -0.7, 0.1], rotation: [-0.1, -0.15, -0.1], size: [1.2, 1.6], color: "#2c3446", opacity: 0.85, floatSpeed: 0.55, floatOffset: 0.8 },
+  { position: [-1.5, 0.4, -0.6], rotation: [0.1, 0.5, -0.15], size: [1.7, 2.2], color: "#8a63f0", opacity: 0.55, floatSpeed: 0.5, floatOffset: 0 },
+  { position: [0.9, -0.5, -0.2], rotation: [-0.08, -0.35, 0.12], size: [1.9, 2.5], color: "#45cbaf", opacity: 0.5, floatSpeed: 0.42, floatOffset: 1.6 },
+  { position: [-0.4, -0.9, 0.6], rotation: [0.15, 0.15, -0.05], size: [1.5, 2.0], color: "#7c9bff", opacity: 0.45, floatSpeed: 0.6, floatOffset: 3.1 },
+  { position: [1.7, 0.9, 0.3], rotation: [-0.12, -0.2, 0.08], size: [1.3, 1.7], color: "#ffb86b", opacity: 0.5, floatSpeed: 0.46, floatOffset: 2.2 },
+  { position: [0.1, 1.1, -0.9], rotation: [0.05, 0.3, 0.05], size: [1.6, 2.1], color: "#f472a6", opacity: 0.42, floatSpeed: 0.38, floatOffset: 4.4 },
+  { position: [-1.9, -0.7, 0.1], rotation: [-0.1, -0.15, -0.1], size: [1.2, 1.6], color: "#a888ff", opacity: 0.4, floatSpeed: 0.55, floatOffset: 0.8 },
+  { position: [2.1, -1.3, -1.2], rotation: [0.08, -0.1, 0.15], size: [1.1, 1.4], color: "#24a68d", opacity: 0.4, floatSpeed: 0.48, floatOffset: 2.9 },
+  { position: [-0.8, 1.6, -1.4], rotation: [-0.05, 0.25, -0.1], size: [1.3, 1.6], color: "#e14f87", opacity: 0.38, floatSpeed: 0.33, floatOffset: 1.9 },
 ];
 
 function Page({ def, index }: { def: PageDef; index: number }) {
@@ -70,7 +72,8 @@ function Scene() {
     <group ref={group}>
       <ambientLight intensity={0.65} />
       <directionalLight position={[3, 4, 5]} intensity={1.1} color="#eef1ff" />
-      <pointLight position={[-3, -2, 2]} intensity={0.6} color="#7c9bff" />
+      <pointLight position={[-3, -2, 2]} intensity={0.7} color="#8a63f0" />
+      <pointLight position={[3, 2, -1]} intensity={0.6} color="#45cbaf" />
       {PAGES.map((def, i) => (
         <Page key={i} def={def} index={i} />
       ))}

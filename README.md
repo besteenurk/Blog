@@ -1,4 +1,4 @@
-# Defter — Kişisel Blog
+# Mindead — Kişisel Blog
 
 Next.js 16 ile yazılmış, mobil öncelikli, 3D animasyonlu bir kişisel blog. Yazılar şimdilik proje içindeki `data/posts.json` dosyasında tutuluyor; ileride bir veritabanına taşımak için tüm veri erişimi tek bir dosyada (`lib/posts.ts`) toplandı.
 

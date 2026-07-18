@@ -9,11 +9,25 @@
   --color-paper-100: #edeff3;
   --color-paper-300: #b7bece;
   --color-paper-400: #8a93a6;
+
   --color-accent-300: #a6bcff;
   --color-accent-400: #7c9bff;
   --color-accent-500: #5c7ce6;
+
   --color-amber-400: #ffb86b;
   --color-amber-500: #f0973f;
+
+  --color-rose-300: #ff9fc9;
+  --color-rose-400: #f472a6;
+  --color-rose-500: #e14f87;
+
+  --color-teal-300: #7fe3cf;
+  --color-teal-400: #45cbaf;
+  --color-teal-500: #24a68d;
+
+  --color-violet-300: #c6b3ff;
+  --color-violet-400: #a888ff;
+  --color-violet-500: #8a63f0;
 
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-body: "Inter Variable", "Helvetica Neue", Arial, sans-serif;
@@ -36,6 +50,7 @@ body {
   font-family: var(--font-body);
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
 }
 
 ::selection {
@@ -43,12 +58,44 @@ body {
   color: var(--color-ink-950);
 }
 
+/* Sitewide colorful ambient glow — present on every page, not just the hero */
+.site-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.site-glow::before,
+.site-glow::after {
+  content: "";
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.16;
+}
+
+.site-glow::before {
+  top: -20vmax;
+  left: -15vmax;
+  background: radial-gradient(circle, var(--color-violet-400), transparent 70%);
+}
+
+.site-glow::after {
+  bottom: -25vmax;
+  right: -15vmax;
+  background: radial-gradient(circle, var(--color-teal-400), transparent 70%);
+}
+
 /* Subtle grain so the flat dark background doesn't feel like a template default */
 .grain {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
   opacity: 0.035;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
