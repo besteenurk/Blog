@@ -2,141 +2,192 @@
 
 import { useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { RoundedBox } from "@react-three/drei";
+import { Html, Line } from "@react-three/drei";
+import { useRouter } from "next/navigation";
 import * as THREE from "three";
 
-type PageDef = {
-  position: [number, number, number];
-  rotation: [number, number, number];
-  size: [number, number];
-  color: string;
-  opacity: number;
-  floatSpeed: number;
-  floatOffset: number;
-  impulse: [number, number, number];
-};
+export type HeroPost = { slug: string; title: string };
 
-const PAGES: PageDef[] = [
-  { position: [-1.5, 0.4, -0.6], rotation: [0.1, 0.5, -0.15], size: [1.7, 2.2], color: "#8a63f0", opacity: 0.55, floatSpeed: 0.5, floatOffset: 0, impulse: [-1.2, 0.6, 0.4] },
-  { position: [0.9, -0.5, -0.2], rotation: [-0.08, -0.35, 0.12], size: [1.9, 2.5], color: "#45cbaf", opacity: 0.5, floatSpeed: 0.42, floatOffset: 1.6, impulse: [0.9, -0.8, 0.2] },
-  { position: [-0.4, -0.9, 0.6], rotation: [0.15, 0.15, -0.05], size: [1.5, 2.0], color: "#7c9bff", opacity: 0.45, floatSpeed: 0.6, floatOffset: 3.1, impulse: [-0.6, -1.1, -0.3] },
-  { position: [1.7, 0.9, 0.3], rotation: [-0.12, -0.2, 0.08], size: [1.3, 1.7], color: "#ffb86b", opacity: 0.5, floatSpeed: 0.46, floatOffset: 2.2, impulse: [1.3, 0.7, 0.1] },
-  { position: [0.1, 1.1, -0.9], rotation: [0.05, 0.3, 0.05], size: [1.6, 2.1], color: "#f472a6", opacity: 0.42, floatSpeed: 0.38, floatOffset: 4.4, impulse: [0.2, 1.3, -0.4] },
-  { position: [-1.9, -0.7, 0.1], rotation: [-0.1, -0.15, -0.1], size: [1.2, 1.6], color: "#a888ff", opacity: 0.4, floatSpeed: 0.55, floatOffset: 0.8, impulse: [-1.1, -0.5, 0.5] },
-  { position: [2.1, -1.3, -1.2], rotation: [0.08, -0.1, 0.15], size: [1.1, 1.4], color: "#24a68d", opacity: 0.4, floatSpeed: 0.48, floatOffset: 2.9, impulse: [1.0, -1.0, -0.2] },
-  { position: [-0.8, 1.6, -1.4], rotation: [-0.05, 0.25, -0.1], size: [1.3, 1.6], color: "#e14f87", opacity: 0.38, floatSpeed: 0.33, floatOffset: 1.9, impulse: [-0.5, 1.2, 0.3] },
-];
+const COLORS = ["#8a63f0", "#45cbaf", "#f472a6", "#ffb86b", "#7c9bff", "#a888ff"];
+const RADIUS = 2.5;
 
-type DragState = {
-  dragging: boolean;
-  lastX: number;
-  lastY: number;
-  rotX: number;
-  rotY: number;
-  moved: number;
-  burstStart: number | null;
-  burstRequested: boolean;
-};
+function nodeBasePosition(index: number, total: number): [number, number, number] {
+  const angle = (index / total) * Math.PI * 2;
+  return [Math.cos(angle) * RADIUS, Math.sin(angle * 1.3) * 0.9, Math.sin(angle) * RADIUS * 0.6];
+}
 
-function Page({ def }: { def: PageDef }) {
+function Hub() {
   const mesh = useRef<THREE.Mesh>(null);
-  const base = useMemo(() => new THREE.Vector3(...def.position), [def.position]);
-
   useFrame((state) => {
     if (!mesh.current) return;
-    const t = state.clock.getElapsedTime() * def.floatSpeed + def.floatOffset;
-    const burst = (mesh.current.userData.burst as number) ?? 0;
-    mesh.current.position.y = base.y + Math.sin(t) * 0.18 + def.impulse[1] * burst;
-    mesh.current.position.x = base.x + Math.cos(t * 0.7) * 0.08 + def.impulse[0] * burst;
-    mesh.current.position.z = base.z + def.impulse[2] * burst;
-    mesh.current.rotation.z = def.rotation[2] + Math.sin(t * 0.5) * 0.05 + burst * 1.4;
+    const s = 1 + Math.sin(state.clock.getElapsedTime() * 1.2) * 0.08;
+    mesh.current.scale.set(s, s, s);
   });
-
   return (
-    <RoundedBox
-      ref={mesh}
-      args={[def.size[0], def.size[1], 0.04]}
-      radius={0.08}
-      smoothness={4}
-      position={def.position}
-      rotation={def.rotation}
-    >
-      <meshStandardMaterial
-        color={def.color}
-        transparent
-        opacity={def.opacity}
-        roughness={0.4}
-        metalness={0.05}
-      />
-    </RoundedBox>
+    <mesh ref={mesh}>
+      <icosahedronGeometry args={[0.46, 1]} />
+      <meshStandardMaterial color="#edeff3" transparent opacity={0.85} roughness={0.2} metalness={0.2} wireframe />
+    </mesh>
   );
 }
 
-function Scene({ drag }: { drag: React.MutableRefObject<DragState> }) {
+function Connection({ index, total }: { index: number; total: number }) {
+  const end = nodeBasePosition(index, total);
+  return (
+    <Line points={[[0, 0, 0], end]} color="#7c9bff" transparent opacity={0.22} lineWidth={1} />
+  );
+}
+
+function Spark({ index, total }: { index: number; total: number }) {
+  const mesh = useRef<THREE.Mesh>(null);
+  const end = useMemo(() => new THREE.Vector3(...nodeBasePosition(index, total)), [index, total]);
+  const zero = useMemo(() => new THREE.Vector3(0, 0, 0), []);
+
+  useFrame((state) => {
+    if (!mesh.current) return;
+    const t = state.clock.getElapsedTime() * 0.55 + index * 0.8;
+    const phase = Math.abs(((t % 2) - 1));
+    mesh.current.position.lerpVectors(zero, end, phase);
+  });
+
+  return (
+    <mesh ref={mesh}>
+      <sphereGeometry args={[0.045, 8, 8]} />
+      <meshBasicMaterial color="#ffffff" transparent opacity={0.85} />
+    </mesh>
+  );
+}
+
+function Node({
+  post,
+  index,
+  total,
+  hovered,
+  onHover,
+}: {
+  post: HeroPost;
+  index: number;
+  total: number;
+  hovered: boolean;
+  onHover: (i: number | null) => void;
+}) {
+  const router = useRouter();
+  const mesh = useRef<THREE.Mesh>(null);
+  const color = COLORS[index % COLORS.length];
+  const base = useMemo(() => new THREE.Vector3(...nodeBasePosition(index, total)), [index, total]);
+
+  useFrame((state) => {
+    if (!mesh.current) return;
+    const t = state.clock.getElapsedTime() * 0.4 + index * 1.3;
+    mesh.current.position.set(base.x, base.y + Math.sin(t) * 0.12, base.z);
+    const targetScale = hovered ? 1.4 : 1;
+    mesh.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.15);
+  });
+
+  return (
+    <mesh
+      ref={mesh}
+      position={base}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        onHover(index);
+        document.body.style.cursor = "pointer";
+      }}
+      onPointerOut={() => {
+        onHover(null);
+        document.body.style.cursor = "auto";
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        router.push(`/blog/${post.slug}`);
+      }}
+    >
+      <icosahedronGeometry args={[0.3, 0]} />
+      <meshStandardMaterial
+        color={color}
+        transparent
+        opacity={hovered ? 0.95 : 0.68}
+        roughness={0.3}
+        metalness={0.1}
+        wireframe
+      />
+      <Html center distanceFactor={8} position={[0, -0.55, 0]} style={{ pointerEvents: "none" }}>
+        <div
+          style={{
+            width: 140,
+            textAlign: "center",
+            fontFamily: "var(--font-mono)",
+            fontSize: 11,
+            color: hovered ? "#ffffff" : "rgba(237,239,243,0.7)",
+            textShadow: "0 1px 6px rgba(0,0,0,0.85)",
+            transition: "color 0.2s",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {post.title}
+        </div>
+      </Html>
+    </mesh>
+  );
+}
+
+type DragState = { dragging: boolean; lastX: number; lastY: number; rotX: number; rotY: number };
+
+function Scene({ posts, drag }: { posts: HeroPost[]; drag: React.MutableRefObject<DragState> }) {
   const group = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const total = posts.length;
 
   useFrame((state) => {
     if (!group.current) return;
-    const { pointer } = state;
     const d = drag.current;
-
-    const targetY = pointer.x * 0.28 + d.rotY;
-    const targetX = -pointer.y * 0.18 + d.rotX;
-    group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetY, 0.08);
-    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, targetX, 0.08);
-
+    const idle = state.clock.getElapsedTime() * 0.05;
+    group.current.rotation.y = idle + d.rotY;
+    group.current.rotation.x = d.rotX;
     if (!d.dragging) {
-      d.rotY *= 0.94;
-      d.rotX *= 0.94;
+      d.rotY *= 0.97;
+      d.rotX *= 0.97;
     }
-
-    if (d.burstRequested) {
-      d.burstStart = state.clock.getElapsedTime();
-      d.burstRequested = false;
-    }
-
-    let burstValue = 0;
-    if (d.burstStart !== null) {
-      const elapsed = state.clock.getElapsedTime() - d.burstStart;
-      burstValue = Math.max(0, 1 - elapsed / 1.1) * Math.sin(elapsed * 3);
-      if (elapsed > 1.1) d.burstStart = null;
-    }
-    group.current.children.forEach((child) => {
-      child.userData.burst = burstValue;
-    });
   });
 
   return (
     <group ref={group}>
-      <ambientLight intensity={0.65} />
-      <directionalLight position={[3, 4, 5]} intensity={1.1} color="#eef1ff" />
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[3, 4, 5]} intensity={1} color="#eef1ff" />
       <pointLight position={[-3, -2, 2]} intensity={0.7} color="#8a63f0" />
       <pointLight position={[3, 2, -1]} intensity={0.6} color="#45cbaf" />
-      {PAGES.map((def, i) => (
-        <Page key={i} def={def} />
-      ))}
+
+      <Hub />
+
+      {total > 0 &&
+        posts.map((_, i) => <Connection key={`line-${i}`} index={i} total={total} />)}
+      {total > 0 &&
+        posts.map((_, i) => <Spark key={`spark-${i}`} index={i} total={total} />)}
+      {total > 0 &&
+        posts.map((post, i) => (
+          <Node
+            key={post.slug}
+            post={post}
+            index={i}
+            total={total}
+            hovered={hovered === i}
+            onHover={setHovered}
+          />
+        ))}
     </group>
   );
 }
 
-export default function Hero3D() {
-  const drag = useRef<DragState>({
-    dragging: false,
-    lastX: 0,
-    lastY: 0,
-    rotX: 0,
-    rotY: 0,
-    moved: 0,
-    burstStart: null,
-    burstRequested: false,
-  });
+export default function Hero3D({ posts }: { posts: HeroPost[] }) {
+  const drag = useRef<DragState>({ dragging: false, lastX: 0, lastY: 0, rotX: 0, rotY: 0 });
   const [grabbing, setGrabbing] = useState(false);
 
   function onPointerDown(e: React.PointerEvent) {
     drag.current.dragging = true;
     drag.current.lastX = e.clientX;
     drag.current.lastY = e.clientY;
-    drag.current.moved = 0;
     setGrabbing(true);
   }
 
@@ -146,7 +197,6 @@ export default function Hero3D() {
     const dy = e.clientY - drag.current.lastY;
     drag.current.lastX = e.clientX;
     drag.current.lastY = e.clientY;
-    drag.current.moved += Math.abs(dx) + Math.abs(dy);
     drag.current.rotY += dx * 0.006;
     drag.current.rotX += dy * 0.006;
   }
@@ -154,9 +204,6 @@ export default function Hero3D() {
   function endDrag() {
     drag.current.dragging = false;
     setGrabbing(false);
-    if (drag.current.moved < 6) {
-      drag.current.burstRequested = true;
-    }
   }
 
   return (
@@ -166,20 +213,15 @@ export default function Hero3D() {
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
-      onPointerLeave={() => {
-        if (drag.current.dragging) {
-          drag.current.dragging = false;
-          setGrabbing(false);
-        }
-      }}
+      onPointerLeave={endDrag}
     >
       <Canvas
         dpr={[1, 1.6]}
-        camera={{ position: [0, 0, 6], fov: 42 }}
+        camera={{ position: [0, 0, 6.2], fov: 42 }}
         gl={{ antialias: true, alpha: true }}
         className="!absolute inset-0"
       >
-        <Scene drag={drag} />
+        <Scene posts={posts} drag={drag} />
       </Canvas>
     </div>
   );
