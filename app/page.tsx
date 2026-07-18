@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 import PostCard from "@/components/PostCard";
 import HomeHero from "./HomeHero";
+import ScrollStory, { StoryClosing } from "./ScrollStory";
 
 const HOME_POST_COUNT = 5;
 
@@ -9,9 +10,38 @@ export default async function HomePage() {
   const posts = await getAllPosts();
   const latest = posts.slice(0, HOME_POST_COUNT);
 
+  const totalViews = posts.reduce((sum, p) => sum + (p.views ?? 0), 0);
+  const earliest = posts.reduce<number | null>((min, p) => {
+    const t = new Date(p.date).getTime();
+    return min === null || t < min ? t : min;
+  }, null);
+  const daysSinceFirst = earliest ? Math.max(0, Math.floor((Date.now() - earliest) / 86400000)) : 0;
+
   return (
     <>
       <HomeHero />
+
+      {posts.length > 0 && (
+        <>
+          <ScrollStory
+            totalPosts={posts.length}
+            totalViews={totalViews}
+            daysSinceFirst={daysSinceFirst}
+          />
+          <StoryClosing>
+            <p className="font-display text-2xl font-semibold text-paper-100 sm:text-3xl">
+              Okumaya devam et.
+            </p>
+            <Link
+              href="/yazilar"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent-400 px-6 py-3 font-mono text-sm text-ink-950 transition-transform hover:scale-105"
+            >
+              Tüm yazılara göz at
+              <span aria-hidden>→</span>
+            </Link>
+          </StoryClosing>
+        </>
+      )}
 
       <section className="mx-auto max-w-3xl px-5 py-14 sm:py-20">
         <div className="mb-8 flex items-center justify-between">
