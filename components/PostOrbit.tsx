@@ -27,20 +27,29 @@ function Hub() {
   return (
     <mesh ref={mesh}>
       <icosahedronGeometry args={[0.4, 1]} />
-      <meshStandardMaterial color="#edeff3" transparent opacity={0.85} roughness={0.2} metalness={0.2} wireframe />
+      <meshBasicMaterial
+        color="#a6bcff"
+        transparent
+        opacity={0.8}
+        wireframe
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+      />
     </mesh>
   );
 }
 
 function Connection({ index, total }: { index: number; total: number }) {
   const end = nodeBasePosition(index, total);
-  return <Line points={[[0, 0, 0], end]} color="#7c9bff" transparent opacity={0.22} lineWidth={1} />;
+  const color = COLORS[index % COLORS.length];
+  return <Line points={[[0, 0, 0], end]} color={color} transparent opacity={0.3} lineWidth={1} />;
 }
 
 function Spark({ index, total }: { index: number; total: number }) {
   const mesh = useRef<THREE.Mesh>(null);
   const end = useMemo(() => new THREE.Vector3(...nodeBasePosition(index, total)), [index, total]);
   const zero = useMemo(() => new THREE.Vector3(0, 0, 0), []);
+  const color = COLORS[index % COLORS.length];
 
   useFrame((state) => {
     if (!mesh.current) return;
@@ -51,8 +60,8 @@ function Spark({ index, total }: { index: number; total: number }) {
 
   return (
     <mesh ref={mesh}>
-      <sphereGeometry args={[0.04, 8, 8]} />
-      <meshBasicMaterial color="#ffffff" transparent opacity={0.85} />
+      <sphereGeometry args={[0.05, 8, 8]} />
+      <meshBasicMaterial color={color} transparent opacity={0.95} blending={THREE.AdditiveBlending} depthWrite={false} />
     </mesh>
   );
 }
@@ -105,13 +114,13 @@ function Node({
       }}
     >
       <icosahedronGeometry args={[0.28, 0]} />
-      <meshStandardMaterial
+      <meshBasicMaterial
         color={color}
         transparent
-        opacity={hovered ? 0.95 : 0.68}
-        roughness={0.3}
-        metalness={0.1}
+        opacity={hovered ? 0.95 : 0.6}
         wireframe
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
       />
       <Html
         center
@@ -166,11 +175,6 @@ function Scene({ posts, drag }: { posts: OrbitPost[]; drag: React.MutableRefObje
 
   return (
     <group ref={group}>
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[3, 4, 5]} intensity={1} color="#eef1ff" />
-      <pointLight position={[-3, -2, 2]} intensity={0.7} color="#8a63f0" />
-      <pointLight position={[3, 2, -1]} intensity={0.6} color="#45cbaf" />
-
       <Hub />
 
       {total > 0 && posts.map((_, i) => <Connection key={`line-${i}`} index={i} total={total} />)}

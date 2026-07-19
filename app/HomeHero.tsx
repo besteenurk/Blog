@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import FloatingShapes3D from "@/components/FloatingShapes3D";
+import HeroGlowClient from "./HeroGlowClient";
 
 const LINE = "Düşünceler kâğıda dökülünce iz bırakır.";
 
@@ -24,7 +24,7 @@ export default function HomeHero() {
       className="relative isolate min-h-[62svh] overflow-hidden border-b border-ink-700/70 px-5 pb-14 pt-16 sm:min-h-[74svh] sm:pb-20 sm:pt-24"
     >
       <div className="absolute inset-0 z-0">
-        <FloatingShapes3D />
+        <HeroGlowClient />
       </div>
 
       <div

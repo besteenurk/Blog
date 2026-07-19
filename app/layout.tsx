@@ -5,7 +5,6 @@ import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import AmbientSceneClient from "./AmbientSceneClient";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,7 +23,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="tr">
       <body className="min-h-dvh bg-ink-950 font-body text-paper-100">
         <div className="site-glow" />
-        <AmbientSceneClient />
         <div className="grain" />
         <div className="relative z-10 flex min-h-dvh flex-col">
           <Nav />
