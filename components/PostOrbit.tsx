@@ -110,7 +110,7 @@ function Node({
       onClick={(e) => {
         e.stopPropagation();
         if (drag.current.pressMoved > CLICK_MOVE_THRESHOLD) return;
-        router.push(`/blog/${post.slug}`);
+        router.push(`/yazilar/${post.slug}`);
       }}
     >
       <icosahedronGeometry args={[0.28, 0]} />

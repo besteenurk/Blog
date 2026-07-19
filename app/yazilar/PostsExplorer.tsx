@@ -44,7 +44,7 @@ export default function PostsExplorer({ posts }: { posts: Post[] }) {
       ticks += 1;
       if (ticks >= maxTicks) {
         clearInterval(interval);
-        router.push(`/blog/${random.slug}`);
+        router.push(`/yazilar/${random.slug}`);
       }
     }, 90);
   }

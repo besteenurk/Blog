@@ -51,7 +51,7 @@ export default function PostCard({ post, index }: { post: Post; index: number })
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         className="group rounded-2xl border border-ink-700 bg-ink-900/60 shadow-card transition-colors hover:border-accent-400/40"
       >
-        <Link href={`/blog/${post.slug}`} className="block p-5 sm:p-6">
+        <Link href={`/yazilar/${post.slug}`} className="block p-5 sm:p-6">
           <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-wider text-paper-400">
             <time dateTime={post.date}>{formatDate(post.date)}</time>
             <span aria-hidden className="text-ink-600">

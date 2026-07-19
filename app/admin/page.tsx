@@ -315,7 +315,7 @@ export default function AdminPage() {
                     </span>
                   )}
                 </div>
-                <p className="mt-1 font-mono text-[11px] text-paper-400">/blog/{post.slug}</p>
+                <p className="mt-1 font-mono text-[11px] text-paper-400">/yazilar/{post.slug}</p>
               </div>
               <div className="flex gap-2">
                 <button
