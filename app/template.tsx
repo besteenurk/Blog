@@ -1,6 +1,0 @@
-import type { ReactNode } from "react";
-import PageTransition from "./PageTransition";
-
-export default function Template({ children }: { children: ReactNode }) {
-  return <PageTransition>{children}</PageTransition>;
-}

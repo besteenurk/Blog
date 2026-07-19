@@ -40,10 +40,6 @@
   border-color: var(--color-ink-700);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--color-ink-950);
   color: var(--color-paper-100);
