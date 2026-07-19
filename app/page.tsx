@@ -21,28 +21,6 @@ export default async function HomePage() {
     <>
       <HomeHero />
 
-      {posts.length > 0 && (
-        <>
-          <ScrollStory
-            totalPosts={posts.length}
-            totalViews={totalViews}
-            daysSinceFirst={daysSinceFirst}
-          />
-          <StoryClosing>
-            <p className="font-display text-2xl font-semibold text-paper-100 sm:text-3xl">
-              Okumaya devam et.
-            </p>
-            <Link
-              href="/yazilar"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent-400 px-6 py-3 font-mono text-sm text-ink-950 transition-transform hover:scale-105"
-            >
-              Tüm yazılara göz at
-              <span aria-hidden>→</span>
-            </Link>
-          </StoryClosing>
-        </>
-      )}
-
       <section className="mx-auto max-w-3xl px-5 py-14 sm:py-20">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="font-display text-lg font-semibold text-paper-100">Son yazılar</h2>
@@ -78,6 +56,28 @@ export default async function HomePage() {
           </div>
         )}
       </section>
+
+      {posts.length > 0 && (
+        <>
+          <ScrollStory
+            totalPosts={posts.length}
+            totalViews={totalViews}
+            daysSinceFirst={daysSinceFirst}
+          />
+          <StoryClosing>
+            <p className="font-display text-2xl font-semibold text-paper-100 sm:text-3xl">
+              Okumaya devam et.
+            </p>
+            <Link
+              href="/yazilar"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent-400 px-6 py-3 font-mono text-sm text-ink-950 transition-transform hover:scale-105"
+            >
+              Tüm yazılara göz at
+              <span aria-hidden>→</span>
+            </Link>
+          </StoryClosing>
+        </>
+      )}
     </>
   );
 }

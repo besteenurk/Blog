@@ -40,5 +40,47 @@
     "date": "2026-07-10T08:15:00.000Z",
     "published": true,
     "views": 214
+  },
+  {
+    "slug": "az-okumak-cok-dusunmek",
+    "title": "Az Okumak, Çok Düşünmek",
+    "excerpt": "Bir kitabı bitirmek bir hedef değil. Bazen bir paragrafın üzerinde bir hafta durmak, on kitabı hızlıca çevirmekten daha fazla şey öğretiyor.",
+    "content": "## Hız bir erdem değil\n\nUzun süre \"bu yıl kaç kitap okudum\" diye bir sayıyla övündüm. Sonra fark ettim ki hatırladığım şeyler o sayıyla hiç orantılı değildi.\n\nBazı paragraflar var ki, okuduktan sonra kitabı kapatıp pencereye bakmak gerekiyor. O paragrafı hemen bir sonrakiyle değiştirmek, düşünceyi yarıda kesmek gibi.\n\n### Denediğim bir şey\n\n- Bir kitabı bitirmeden önce, üzerine not almadığım hiçbir bölümü atlamıyorum\n- Bir fikri anlamadıysam, ilerlemek yerine geri dönüp tekrar okuyorum\n- Bazı kitapları yıllarca \"yarım\" bırakıyorum, bu bir başarısızlık değil\n\n> Okumak biriktirmek değil, sindirmektir.\n\nSonuçta daha az kitap bitiriyorum ama daha çoğunu gerçekten taşıyorum. Bu değişim bana iyi geldi.",
+    "coverImage": null,
+    "tags": [
+      "düşünce",
+      "okuma"
+    ],
+    "date": "2026-07-14T10:20:00.000Z",
+    "published": true,
+    "views": 96
+  },
+  {
+    "slug": "bir-fikri-nasil-oldurursun",
+    "title": "Bir Fikri Nasıl Öldürürsün",
+    "excerpt": "Bir fikri mahvetmenin en garantili yolu, onu mükemmel hale getirmeye çalışmaktır. Bunu çok kez kendi üzerimde denedim, işe hep yarıyor.",
+    "content": "## Mükemmeliyetçilik bir gecikme taktiğidir\n\nYazmaya başlamadan önce konuyu \"tam olarak\" anlamak istemek, genelde hiç yazmamak için bulduğum en kibar bahane oldu.\n\nBir fikir taze çıktığında kırılgandır. Onu hemen sıkı bir çerçeveye, kusursuz bir cümleye sokmaya çalışırsan, çoğu zaman fikir değil, kaygın konuşur.\n\n### Fark ettiğim üç şey\n\n1. İlk taslak kötü olmalı, yoksa taslak değildir\n2. \"Sonra düzeltirim\" demek, mükemmeliyetçiliğe karşı en işe yarar yalan\n3. Bir fikri paylaşmadan önce on kişiye sormak, genelde onu senden çalar, sana ait olmaktan çıkarır\n\n> Bitmemiş bir şeyi göstermek, hiç göstermemekten daha cesurdur.\n\nBu yazı da tam üç kere silinip yeniden yazıldı. Belki hâlâ kusurlu ama en azından burada.",
+    "coverImage": null,
+    "tags": [
+      "düşünce",
+      "yazı"
+    ],
+    "date": "2026-07-16T19:05:00.000Z",
+    "published": true,
+    "views": 58
+  },
+  {
+    "slug": "sessizligin-sesi",
+    "title": "Sessizliğin Sesi",
+    "excerpt": "Telefonu bir günlüğüne bırakmak, aslında sessizliğin hiç de sessiz olmadığını öğretti bana.",
+    "content": "## Bildirimsiz bir gün\n\nBir gün boyunca telefonu tamamen kapattım. İlk saatlerde tuhaf bir huzursuzluk vardı, sanki bir şey eksikti. Sonra o boşluk yavaşça bir alana dönüştü.\n\nSessizlik dediğimiz şey aslında hiç sessiz değil: rüzgarın sesini, kendi adımlarını, düşüncenin arka planda dönüp durduğunu fark ediyorsun. Normalde bunların hepsi bildirim sesleriyle örtülüyor.\n\n### Küçük bir deney\n\n- Sabah ilk saatte telefonu hiç açmadım\n- Bir yürüyüşe sadece kağıt ve kalemle çıktım\n- Akşam, gün boyunca aklımdan geçenleri tek tek yazdım\n\n> Dikkatini nereye verirsen, hayatın oraya akar.\n\nBu bir teknoloji karşıtlığı değil. Sadece susmanın da bir beceri olduğunu, ve bu beceriyi kaybetmek üzere olduğumu fark ettim.",
+    "coverImage": null,
+    "tags": [
+      "günlük",
+      "düşünce"
+    ],
+    "date": "2026-07-18T07:40:00.000Z",
+    "published": true,
+    "views": 41
   }
 ]

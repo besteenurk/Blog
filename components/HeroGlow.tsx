@@ -57,7 +57,7 @@ function GlowKnot({
   opacity: number;
 }) {
   const points = useRef<THREE.Points>(null);
-  const { positions, colors } = useMemo(() => buildKnotPoints(p, q, radius, tube, 180, 14), [p, q, radius, tube]);
+  const { positions, colors } = useMemo(() => buildKnotPoints(p, q, radius, tube, 110, 10), [p, q, radius, tube]);
 
   useFrame((state) => {
     if (!points.current) return;
@@ -99,8 +99,8 @@ function Scene({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: nu
   return (
     <group ref={group}>
       <ambientLight intensity={0.4} />
-      <GlowKnot p={2} q={3} radius={1.5} tube={0.42} size={0.045} speed={0.12} direction={1} opacity={0.9} />
-      <GlowKnot p={3} q={5} radius={0.85} tube={0.22} size={0.03} speed={0.2} direction={-1} opacity={0.6} />
+      <GlowKnot p={2} q={3} radius={1.5} tube={0.42} size={0.05} speed={0.12} direction={1} opacity={0.9} />
+      <GlowKnot p={3} q={5} radius={0.85} tube={0.22} size={0.035} speed={0.2} direction={-1} opacity={0.6} />
     </group>
   );
 }
@@ -118,7 +118,7 @@ export default function HeroGlow() {
   return (
     <div className="absolute inset-0" onPointerMove={onPointerMove}>
       <Canvas
-        dpr={[1, 1.6]}
+        dpr={[1, 1.3]}
         camera={{ position: [0, 0, 5.2], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
         className="!absolute inset-0"

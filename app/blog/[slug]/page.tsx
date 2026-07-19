@@ -41,7 +41,7 @@ export default async function PostPage({
     <article className="mx-auto max-w-2xl px-5 py-12 sm:py-16">
       <ViewTracker slug={post.slug} />
       <Link
-        href="/"
+        href="/yazilar"
         className="font-mono text-xs text-paper-400 transition-colors hover:text-accent-300"
       >
         ← Tüm yazılar
